@@ -1,22 +1,24 @@
 import { useEffect, useCallback } from 'react'
 import './App.css'
 import { useSelector, useDispatch } from 'react-redux'
+import { increase, decrease } from './store/index'
 
 export default function App() {
   const dispatch = useDispatch()
   const counterState = useSelector((state) => state.counter)
-  const showCounterState = useSelector((state) => state.showCounter)
 
-  const counterOperation = useCallback(
-    (type, payload) => {
-      dispatch({ type, payload })
-    },
-    [dispatch]
-  )
+  // original redux
 
-  useEffect(() => {
-    counterOperation('increase', { addedNum: 5 })
-  }, [counterOperation])
+  // const counterOperation = useCallback(
+  //   (type, payload) => {
+  //     dispatch({ type, payload })
+  //   },
+  //   [dispatch]
+  // )
+
+  // useEffect(() => {
+  //   counterOperation('increase', { addedNum: 5 })
+  // }, [counterOperation])
 
   // const increase = () => {
   //   const action = { type: 'increase', payload: { addedNum: 5 } }
@@ -27,38 +29,29 @@ export default function App() {
   //   dispatch(action)
   // }
 
-  const showOrHideCounter = () => {
-    const action = { type: 'toggleCounter' }
-    dispatch(action)
-  }
+  // const showOrHideCounter = () => {
+  //   const action = { type: 'toggleCounter' }
+  //   dispatch(action)
+  // }
 
   return (
     <div className="app-container">
       <h1>React Redux Counter</h1>
-      {showCounterState && (
-        <>
-          <div className="counter">Counter : {counterState}</div>
-          <div>
-            <button
-              className="btn"
-              onClick={() => counterOperation('increase', { addedNum: 5 })}
-            >
-              Increase +
-            </button>
-            <button
-              className="btn"
-              onClick={() => counterOperation('decrease', { subtractedNum: 5 })}
-            >
-              Decrease -
-            </button>
-          </div>
-        </>
-      )}
+
+      <>
+        <div className="counter">Counter : {counterState}</div>
+        <div>
+          <button className="btn" onClick={() => dispatch(increase(5))}>
+            Increase +
+          </button>
+          <button className="btn" onClick={() => dispatch(decrease(2))}>
+            Decrease -
+          </button>
+        </div>
+      </>
 
       <div>
-        <button className="btn" onClick={showOrHideCounter}>
-          Hide/Show Counter Number
-        </button>
+        <button className="btn">Hide/Show Counter Number</button>
       </div>
     </div>
   )

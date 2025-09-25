@@ -1,16 +1,16 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit'
+import { createStore, createSlice } from '@reduxjs/toolkit'
 
-const initState = { counter: 0, showCounter: true }
+const initState = { counter: 0 }
 
 const counterSlice = createSlice({
   name: 'counter',
   initialState: initState,
   reducers: {
     increase: (state, action) => {
-      state.counter += 1
+      state.counter += action.payload
     },
     decrease: (state, action) => {
-      state.counter -= 1
+      state.counter -= action.payload
     },
   },
 })
@@ -28,6 +28,9 @@ const counterSlice = createSlice({
 //   return state
 // }
 
-const store = configureStore(counterSlice.reducer)
+const store = createStore(counterSlice.reducer)
+
+// exportin action to import and use it in app component
+export const { increase, decrease } = counterSlice.actions
 
 export default store
