@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react'
 import './App.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { increase, decrease } from './store/index'
+import { increase, decrease } from './store/counterSlice'
 
 export default function App() {
   const dispatch = useDispatch()
