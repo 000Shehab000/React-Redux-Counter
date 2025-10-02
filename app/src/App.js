@@ -5,7 +5,7 @@ import { increase, decrease } from './store/counterSlice'
 
 export default function App() {
   const dispatch = useDispatch()
-  const counterState = useSelector((state) => state.counter)
+  const counterState = useSelector((state) => state.counter.value)
 
   return (
     <div className="app-container">
