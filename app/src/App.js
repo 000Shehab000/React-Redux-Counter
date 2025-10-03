@@ -1,4 +1,5 @@
 import './App.css'
+import { useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 //actions
@@ -10,13 +11,20 @@ export default function App() {
   const counterState = useSelector((state) => state.counter.value)
   const authState = useSelector((state) => state.auth.isLoggedIn)
 
-  const counterHandler = (type, value) => {
-    if (type === 'increase') {
-      dispatch(increase(value))
-    } else {
-      dispatch(decrease(value))
-    }
-  }
+  const counterHandler = useCallback(
+    (type, value) => {
+      if (type === 'increase') {
+        dispatch(increase(value))
+      } else {
+        dispatch(decrease(value))
+      }
+    },
+    [dispatch]
+  )
+
+  useEffect(() => {
+    counterHandler('increase', 10)
+  }, [counterHandler])
 
   const logInHandler = (status) => {
     if (status) {
