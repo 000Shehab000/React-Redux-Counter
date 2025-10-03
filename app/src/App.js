@@ -1,12 +1,22 @@
 import './App.css'
 import { useSelector, useDispatch } from 'react-redux'
+
+//actions
 import { increase, decrease } from './store/counterSlice'
-import { toggle } from './store/authSlice'
+import { loggIn, logOut } from './store/authSlice'
 
 export default function App() {
   const dispatch = useDispatch()
   const counterState = useSelector((state) => state.counter.value)
   const authState = useSelector((state) => state.auth.isLoggedIn)
+
+  const logInHandler = (status) => {
+    if (status) {
+      dispatch(logOut())
+    } else {
+      dispatch(loggIn())
+    }
+  }
 
   return (
     <div className="app-container">
@@ -27,7 +37,7 @@ export default function App() {
       )}
 
       <div>
-        <button className="btn" onClick={() => dispatch(toggle())}>
+        <button className="btn" onClick={() => logInHandler(authState)}>
           {authState ? 'Sign Out' : 'Login'}
         </button>
       </div>
