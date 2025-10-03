@@ -10,6 +10,14 @@ export default function App() {
   const counterState = useSelector((state) => state.counter.value)
   const authState = useSelector((state) => state.auth.isLoggedIn)
 
+  const counterHandler = (type, value) => {
+    if (type === 'increase') {
+      dispatch(increase(value))
+    } else {
+      dispatch(decrease(value))
+    }
+  }
+
   const logInHandler = (status) => {
     if (status) {
       dispatch(logOut())
@@ -26,10 +34,16 @@ export default function App() {
         <>
           <div className="counter">Counter : {counterState}</div>
           <div>
-            <button className="btn" onClick={() => dispatch(increase(5))}>
+            <button
+              className="btn"
+              onClick={() => counterHandler('increase', 5)}
+            >
               Increase +
             </button>
-            <button className="btn" onClick={() => dispatch(decrease(2))}>
+            <button
+              className="btn"
+              onClick={() => counterHandler('decrease', 5)}
+            >
               Decrease -
             </button>
           </div>
